@@ -1,0 +1,44 @@
+input {
+    width: 30%;
+    font-family: 'Inconsolata', monospace;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-size: 4em;
+    margin: 0 auto 20px;
+    text-align: right;
+}
+
+div#btngrid {
+    width: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+button {
+    font-family: 'Inconsolata', monospace;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 4em;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: white;
+    /* padding: 2rem; */
+    transition: background-color 0.2s ease-in-out;
+}
+
+button.red {
+    background-color: lightcoral;
+}
+
+button.blue {
+    background-color: lightblue;
+}
+
+button:hover {
+    background-color: lightgray;
+}
+
+button:active {
+    background-color: gray;
+}
