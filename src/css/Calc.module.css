@@ -6,10 +6,10 @@ input {
     font-size: 4em;
     margin: 0 auto 20px;
     text-align: right;
+    box-sizing: border-box;
 }
 
 div#btngrid {
-    margin: auto;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
