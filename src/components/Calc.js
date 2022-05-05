@@ -12,7 +12,7 @@ class Calc extends Component {
       acc: 0
     }
     this.handleChange = this.handleChange.bind(this)
-    this.writeDigit = this.writeDigit.bind(this)
+    this.writeDigit = this.putChar.bind(this)
     this.clearScreen = this.clearScreen.bind(this)
     this.calulate = this.calulate.bind(this) 
   }
@@ -21,14 +21,16 @@ class Calc extends Component {
     this.setState({ screen: event.target.value})
   }
 
-  writeDigit(digit) {
+  putChar(char) {
     return () => {
       let screen = this.state.screen
       // check if screen is not filled up
-      if (screen.length < 11){
+      if (screen.length < 11){ 
         // replace 0
-        if (screen === '0') screen = String(digit)
-        else screen += String(digit)
+        if (screen === '0' && char !== '.') {
+          screen = String(char)
+        }
+        else screen += String(char)
         this.setState({ screen: screen})
       }
     }
@@ -36,7 +38,7 @@ class Calc extends Component {
 
   setOP(operator) {
     return () => {
-      const acc = parseInt(this.state.screen)
+      const acc = parseFloat(this.state.screen)
       this.setState({
         screen: '0',
         acc: acc,
@@ -51,7 +53,7 @@ class Calc extends Component {
 
   calulate() {
     const {screen, acc, op} = this.state
-    const scr_int = parseInt(screen)
+    const scr_int = parseFloat(screen)
     let result
     if (acc !== 0) {
       switch(op) {
@@ -89,22 +91,23 @@ class Calc extends Component {
       <div className='calc_app'>
         <input type={'text'} value={this.state.screen}  readOnly></input>
         <div id={styles.btngrid}>
-          <button onClick={this.writeDigit(1)}>1</button>
-          <button onClick={this.writeDigit(2)}>2</button>
-          <button onClick={this.writeDigit(3)}>3</button>
+          <button onClick={this.putChar(1)}>1</button>
+          <button onClick={this.putChar(2)}>2</button>
+          <button onClick={this.putChar(3)}>3</button>
           <button className={styles.red} onClick={this.clearScreen}>C</button>
-          <button onClick={this.writeDigit(4)}>4</button>
-          <button onClick={this.writeDigit(5)}>5</button>
-          <button onClick={this.writeDigit(6)}>6</button>
+          <button onClick={this.putChar(4)}>4</button>
+          <button onClick={this.putChar(5)}>5</button>
+          <button onClick={this.putChar(6)}>6</button>
           <button className={styles.blue} onClick={this.setOP('+')}>+</button>
-          <button onClick={this.writeDigit(7)}>7</button>
-          <button onClick={this.writeDigit(8)}>8</button>
-          <button onClick={this.writeDigit(9)}>9</button>
+          <button onClick={this.putChar(7)}>7</button>
+          <button onClick={this.putChar(8)}>8</button>
+          <button onClick={this.putChar(9)}>9</button>
           <button className={styles.blue} onClick={this.setOP('-')}>-</button>
-          <button className={styles.blue} onClick={this.calulate}>=</button>
-          <button onClick={this.writeDigit(0)}>0</button>
+          <button className={styles.blue} onClick={this.putChar('.')}>.</button>
+          <button onClick={this.putChar(0)}>0</button>
           <button className={styles.blue} onClick={this.setOP('/')}>&#247;</button>
           <button className={styles.blue} onClick={this.setOP('*')}>&times;</button>
+          <button className={styles.eq} onClick={this.calulate}>=</button>
         </div>
       </div>
     )
