@@ -11,6 +11,7 @@ class Calc extends Component {
       op: '',
       acc: 0
     }
+
     this.handleChange = this.handleChange.bind(this)
     this.writeDigit = this.putChar.bind(this)
     this.clearScreen = this.clearScreen.bind(this)
@@ -87,8 +88,14 @@ class Calc extends Component {
   }
 
   render() {
+    const keyHandler = (event) => {
+      const ops = ['+', '-', '/', '*']
+      if (!isNaN(event.key)) this.putChar(event.key)()
+      else if (ops.findIndex((op) => op === event.key) !== -1) this.setOP(event.key)()
+    }
+
     return (
-      <div className='calc_app'>
+      <div className='calc_app' onKeyDown={keyHandler}>
         <input type={'text'} value={this.state.screen}  readOnly></input>
         <div id={styles.btngrid}>
           <button onClick={this.putChar(1)}>1</button>
